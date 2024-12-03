@@ -15,3 +15,7 @@ provider "huaweicloud" {
     secret_key = var.secret_key
     access_key = var.access_key
 }
+
+data "huaweicloud_availability_zones" "sp_azs" {
+  region = "sa-brazil-1"
+}
