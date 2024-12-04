@@ -4,6 +4,10 @@ terraform {
       source  = "huaweicloud/huaweicloud"
       version = ">= 1.36.0"
     }
+    local = {
+      source  = "hashicorp/local"
+      version = "2.5.2"
+    }
   }
 }
 
@@ -18,6 +22,8 @@ provider "huaweicloud" {
   secret_key = var.secret_key
   access_key = var.access_key
 }
+
+provider "local" {}
 
 data "huaweicloud_availability_zones" "sp_azs" {
   region = "sa-brazil-1"

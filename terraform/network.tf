@@ -60,3 +60,20 @@ resource "huaweicloud_vpc_eip" "eip_wireguard" {
     charge_mode = "traffic"
   }
 }
+
+
+resource "huaweicloud_dns_zone" "dns_public_zone" {
+  name        = var.public_domain
+  email       = var.email
+  description = "Public DNS zone for the learning CICD project"
+  ttl         = 3000
+  zone_type   = "public"
+}
+
+variable "public_domain" {
+  type = string
+}
+
+variable "email" {
+  type = string
+}
