@@ -46,3 +46,17 @@ resource "huaweicloud_vpc_route" "vpc_app_peering_route" {
   type        = "peering"
   nexthop     = huaweicloud_vpc_peering_connection.app_access_peering.id
 }
+
+resource "huaweicloud_vpc_eip" "eip_wireguard" {
+  name = "eip-wireguard"
+  publicip {
+    type = "5_bgp"
+  }
+
+  bandwidth {
+    share_type  = "PER"
+    name        = "bandwidth-wireguard"
+    size        = 5
+    charge_mode = "traffic"
+  }
+}

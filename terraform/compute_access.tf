@@ -20,7 +20,7 @@ data "huaweicloud_compute_flavors" "ecs_warpgate_flavor" {
 }
 
 data "huaweicloud_images_image" "ecs_warpgate_image" {
-  name = "Rocky Linux 9.0 64bit"
+  name = "CentOS Stream 9 64bit"
 }
 
 resource "huaweicloud_networking_secgroup" "sg_warpgate" {
@@ -34,7 +34,9 @@ resource "huaweicloud_networking_secgroup_rule" "sg_warpgate_rule" {
   ethertype         = "IPv4"
   protocol          = "tcp"
   ports             = "2222,8888,33306"
+  remote_ip_prefix  = huaweicloud_vpc_subnet.subnet_wireguard.cidr
 }
+
 
 
 # WIREGUARD
@@ -49,6 +51,8 @@ resource "huaweicloud_compute_instance" "ecs_wireguard" {
   network {
     uuid = huaweicloud_vpc_subnet.subnet_wireguard.id
   }
+  private_key = huaweicloud_kps_keypair.wireguard_keypair.private_key
+  key_pair    = huaweicloud_kps_keypair.wireguard_keypair.id
 }
 
 data "huaweicloud_compute_flavors" "ecs_wireguard_flavor" {
@@ -59,7 +63,7 @@ data "huaweicloud_compute_flavors" "ecs_wireguard_flavor" {
 }
 
 data "huaweicloud_images_image" "ecs_wireguard_image" {
-  name = "Rocky Linux 9.0 64bit"
+  name = "Ubuntu 22.04 server 64bit" # Wireguard is much easier to configure in Ubuntu and is much more documented, however, I would prefer using centos stream
 }
 
 resource "huaweicloud_networking_secgroup" "sg_wireguard" {
@@ -81,4 +85,19 @@ resource "huaweicloud_networking_secgroup_rule" "sg_wireguard_rule_ssh" {
   ethertype         = "IPv4"
   protocol          = "tcp"
   ports             = "22"
+}
+
+resource "huaweicloud_kps_keypair" "wireguard_keypair" {
+  name     = "wireguard-keypair"
+  key_file = var.wireguard_keypair_path
+}
+
+variable "wireguard_keypair_path" {
+  type    = string
+  default = "./wireguard_key.pem"
+}
+
+resource "huaweicloud_compute_eip_associate" "wireguard_eip_association" {
+  instance_id = huaweicloud_compute_instance.ecs_wireguard.id
+  public_ip   = huaweicloud_vpc_eip.eip_wireguard.address
 }
