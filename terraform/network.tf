@@ -77,3 +77,16 @@ variable "public_domain" {
 variable "email" {
   type = string
 }
+
+resource "huaweicloud_dns_recordset" "dns_public_wireguard_recordset" {
+  name        = var.wireguard_domain_name
+  zone_id     = huaweicloud_dns_zone.dns_public_zone.id
+  type        = "A"
+  description = "record set for the the wireguard server"
+  records     = [huaweicloud_vpc_eip.eip_wireguard.address]
+  ttl         = 3000
+}
+
+variable "wireguard_domain_name" {
+  type = string
+}

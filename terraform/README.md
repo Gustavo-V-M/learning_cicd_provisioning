@@ -11,6 +11,7 @@
 | Name | Version |
 |------|---------|
 | <a name="provider_huaweicloud"></a> [huaweicloud](#provider\_huaweicloud) | 1.71.0 |
+| <a name="provider_local"></a> [local](#provider\_local) | 2.5.2 |
 
 ## Modules
 
@@ -23,6 +24,7 @@ No modules.
 | [huaweicloud_compute_eip_associate.wireguard_eip_association](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/compute_eip_associate) | resource |
 | [huaweicloud_compute_instance.ecs_warpgate](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/compute_instance) | resource |
 | [huaweicloud_compute_instance.ecs_wireguard](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/compute_instance) | resource |
+| [huaweicloud_dns_recordset.dns_public_wireguard_recordset](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/dns_recordset) | resource |
 | [huaweicloud_dns_zone.dns_public_zone](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/dns_zone) | resource |
 | [huaweicloud_kps_keypair.wireguard_keypair](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/kps_keypair) | resource |
 | [huaweicloud_networking_secgroup.sg_warpgate](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/networking_secgroup) | resource |
@@ -38,6 +40,7 @@ No modules.
 | [huaweicloud_vpc_route.vpc_app_peering_route](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/vpc_route) | resource |
 | [huaweicloud_vpc_subnet.subnet_warpgate](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/vpc_subnet) | resource |
 | [huaweicloud_vpc_subnet.subnet_wireguard](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/vpc_subnet) | resource |
+| [local_file.wireguard_domain_name](https://registry.terraform.io/providers/hashicorp/local/2.5.2/docs/resources/file) | resource |
 | [huaweicloud_availability_zones.sp_azs](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/data-sources/availability_zones) | data source |
 | [huaweicloud_compute_flavors.ecs_warpgate_flavor](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/data-sources/compute_flavors) | data source |
 | [huaweicloud_compute_flavors.ecs_wireguard_flavor](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/data-sources/compute_flavors) | data source |
@@ -52,6 +55,7 @@ No modules.
 | <a name="input_email"></a> [email](#input\_email) | n/a | `string` | n/a | yes |
 | <a name="input_public_domain"></a> [public\_domain](#input\_public\_domain) | n/a | `string` | n/a | yes |
 | <a name="input_secret_key"></a> [secret\_key](#input\_secret\_key) | n/a | `string` | n/a | yes |
+| <a name="input_wireguard_domain_name"></a> [wireguard\_domain\_name](#input\_wireguard\_domain\_name) | n/a | `string` | n/a | yes |
 | <a name="input_wireguard_keypair_path"></a> [wireguard\_keypair\_path](#input\_wireguard\_keypair\_path) | n/a | `string` | `"./wireguard_key.pem"` | no |
 
 ## Outputs

@@ -48,3 +48,9 @@ terraform.rc
 
 # End of https://www.toptal.com/developers/gitignore/api/ansible
 
+# Wireguard
+
+*wireguard_local_pubkey*
+*wireguard_local_address*
+
+.vscode
