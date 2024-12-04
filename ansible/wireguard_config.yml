@@ -1,0 +1,55 @@
+---
+- name: Configure Wireguard
+  hosts: wireguard
+  remote_user: root
+
+  vars:
+    peer_wireguard_pubkey: "{{ lookup('file', 'wireguard_local_pubkey') }}"
+    peer_wireguard_address: "{{ lookup('file', 'wireguard_local_address') }}"
+
+  tasks:
+    - name: Update apt cache and install latest wireguard
+      ansible.builtin.apt:
+        name: wireguard
+        update_cache: yes
+
+    - name: Update sysctl to allow ipv4 port forwarding
+      ansible.posix.sysctl:
+        name: net.ipv4.ip_forward
+        value: "1"
+        sysctl_set: yes
+
+    - name: Create Wireguard keys directory
+      ansible.builtin.file:
+        path: /etc/wireguard/keys
+        state: directory
+
+    - name: Create private Wireguard key and store it into correct file
+      ansible.builtin.command:
+        cmd: wg genkey | tee /etc/wireguard/keys/server.key
+
+    - name: Create public Wireguard key and store it into correct file
+      ansible.builtin.command:
+        cmd: cat /etc/wireguard/keys/server.key | wg pubkey | tee /etc/wireguard/keys/server.key.pub
+
+    - name: Read contents of the private key to a variable
+      ansible.builtin.file:
+        path: /etc/wireguard/keys/server.key
+        state: present
+        register: wireguard_server_privatekey
+
+    - name: Read contents of the public key to a variable
+      ansible.builtin.file:
+        path: /etc/wireguard/keys/server.key.pub
+        state: present
+        register: wireguard_server_pubkey
+
+    - name: Creating wg0 config file
+      ansible.builtin.template:
+        src: ./wg0.j2
+        dest: /etc/wireguard/wg0.conf
+        mode: "0644"
+
+    - name: Print Public key of server
+      ansible.builtin.debug:
+        msg: "{{ wireguard_server_pubkey }}"
