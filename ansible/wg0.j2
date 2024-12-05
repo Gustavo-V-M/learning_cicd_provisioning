@@ -1,11 +1,11 @@
 [Interface]
 Address = 10.0.0.1/24
-PrivateKey = {{ wireguard_server_privatekey }}
+PrivateKey = {{ wireguard_server_privatekey.stdout }}
 ListenPort = 51820
 PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
-SaveConfig
+SaveConfig = true
 
 [Peer]
-AllowedIPs = {{ wireguard_local_address }}
-PublicKey = {{ wireguard_local_pubkey }}
+AllowedIPs = {{ peer_wireguard_address }}
+PublicKey = {{ peer_wireguard_pubkey }}

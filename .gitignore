@@ -54,3 +54,6 @@ terraform.rc
 *wireguard_local_address*
 
 .vscode
+
+*.pem
+*.key 
