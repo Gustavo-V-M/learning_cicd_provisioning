@@ -10,6 +10,8 @@ resource "huaweicloud_compute_instance" "ecs_warpgate" {
   network {
     uuid = huaweicloud_vpc_subnet.subnet_warpgate.id
   }
+  private_key = huaweicloud_kps_keypair.warpgate_keypair.private_key
+  key_pair    = huaweicloud_kps_keypair.warpgate_keypair.id
 }
 
 data "huaweicloud_compute_flavors" "ecs_warpgate_flavor" {
@@ -37,7 +39,15 @@ resource "huaweicloud_networking_secgroup_rule" "sg_warpgate_rule" {
   remote_ip_prefix  = huaweicloud_vpc_subnet.subnet_wireguard.cidr
 }
 
+resource "huaweicloud_kps_keypair" "warpgate_keypair" {
+  name     = "warpgate-keypair"
+  key_file = var.warpgate_keypair_path
+}
 
+variable "warpgate_keypair_path" {
+  type    = string
+  default = "./warpgate_key.pem"
+}
 
 # WIREGUARD
 

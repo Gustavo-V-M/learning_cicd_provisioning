@@ -79,7 +79,7 @@ variable "email" {
 }
 
 resource "huaweicloud_dns_recordset" "dns_public_wireguard_recordset" {
-  name        = var.wireguard_domain_name
+  name        = var.wireguard_public_domain_name
   zone_id     = huaweicloud_dns_zone.dns_public_zone.id
   type        = "A"
   description = "record set for the the wireguard server"
@@ -87,6 +87,46 @@ resource "huaweicloud_dns_recordset" "dns_public_wireguard_recordset" {
   ttl         = 3000
 }
 
-variable "wireguard_domain_name" {
+resource "huaweicloud_dns_recordset" "dns_public_warpgate_recordset" {
+  name        = var.warpgate_public_domain_name
+  zone_id     = huaweicloud_dns_zone.dns_public_zone.id
+  type        = "A"
+  description = "record set for the the warpgate server"
+  records     = [huaweicloud_compute_instance.ecs_warpgate.access_ip_v4]
+  ttl         = 3000
+}
+
+variable "warpgate_public_domain_name" {
+  type = string
+}
+
+variable "wireguard_public_domain_name" {
+  type = string
+}
+
+resource "huaweicloud_dns_zone" "access_dns_private_zone" {
+  name        = var.access_private_domain
+  email       = var.email
+  description = "Private DNS for the Access VPC"
+  ttl         = 3000
+  zone_type   = "private"
+  router {
+    router_id = huaweicloud_vpc.vpc_access.id
+  }
+}
+
+variable "access_private_domain" {
+  type = string
+}
+
+resource "huaweicloud_dns_recordset" "warpgate_access_recordset" {
+  name        = var.warpgate_private_domain_name
+  zone_id     = huaweicloud_dns_zone.access_dns_private_zone.id
+  type        = "A"
+  description = "record set for the the warpgate server"
+  records     = [huaweicloud_compute_instance.ecs_warpgate.access_ip_v4]
+  ttl         = 3000
+}
+variable "warpgate_private_domain_name" {
   type = string
 }

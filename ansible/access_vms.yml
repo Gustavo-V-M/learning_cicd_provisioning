@@ -2,4 +2,4 @@ wireguard:
   hosts: wireguardvpn.gustavolinux.com.br
 
 warpgate:
-  hosts: warpgate.access.gustavolinux
+  hosts: warpgate.gustavolinux.com.br
