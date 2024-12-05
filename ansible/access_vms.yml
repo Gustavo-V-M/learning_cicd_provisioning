@@ -2,4 +2,4 @@ wireguard:
   hosts: wireguardvpn.gustavolinux.com.br
 
 warpgate:
-  hosts: warpgate.gustavolinux.com.br
+  hosts: '{{ lookup("file", "../terraform/warpgate_address") }}'

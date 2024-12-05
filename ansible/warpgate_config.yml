@@ -1,0 +1,49 @@
+---
+- name: Configure Warpgate
+  hosts: warpgate
+  remote_user: root
+  tasks:
+    - name: Install necessary dependencies
+      ansible.builtin.apt:
+        pkg:
+          - ca-certificates
+          - curl
+          - apt-transport-https
+          - software-properties-common
+          - python3-pip
+          - virtualenv
+          - python3-setuptools
+        state: present
+        update_cache: true
+
+    - name: Allow port 2222 and 22 for ssh
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        insertafter: "^#Port 22"
+        line: "{{ item }}"
+      with_items:
+        - "Port 2222"
+        - "Port 22"
+    - name: Restart sshd service
+      ansible.builtin.service:
+        name: sshd
+        state: restarted
+
+    - name: Add Docker GPG apt key
+      ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker Repository
+      ansible.builtin.apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu jammy stable
+        state: present
+
+    - name: Install docker packages
+      ansible.builtin.apt:
+        pkg:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
