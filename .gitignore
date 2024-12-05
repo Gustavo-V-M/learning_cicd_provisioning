@@ -57,3 +57,5 @@ terraform.rc
 
 *.pem
 *.key 
+
+*warpgate_address*
