@@ -72,8 +72,7 @@ resource "huaweicloud_kps_keypair" "warpgate_keypair" {
 }
 
 variable "warpgate_keypair_path" {
-  type    = string
-  default = "./warpgate_key.pem"
+  type = string
 }
 
 resource "huaweicloud_compute_eip_associate" "warpgate_eip_association" {
@@ -135,8 +134,7 @@ resource "huaweicloud_kps_keypair" "wireguard_keypair" {
 }
 
 variable "wireguard_keypair_path" {
-  type    = string
-  default = "./wireguard_key.pem"
+  type = string
 }
 
 resource "huaweicloud_compute_eip_associate" "wireguard_eip_association" {

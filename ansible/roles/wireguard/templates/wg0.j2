@@ -7,5 +7,5 @@ PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -
 SaveConfig = true
 
 [Peer]
-AllowedIPs = {{ peer_wireguard_address }}
-PublicKey = {{ peer_wireguard_pubkey }}
+AllowedIPs = {{ vars_wireguard_local_ip }}
+PublicKey = {{ vars_wireguard_local_pubkey }}

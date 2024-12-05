@@ -1,0 +1,3 @@
+---
+vars_wireguard_local_ip: 10.0.0.2
+vars_wireguard_local_pubkey: 
