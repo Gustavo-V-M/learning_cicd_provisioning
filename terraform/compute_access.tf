@@ -8,10 +8,15 @@ resource "huaweicloud_compute_instance" "ecs_warpgate" {
   availability_zone  = data.huaweicloud_availability_zones.sp_azs.names[0]
 
   network {
-    uuid = huaweicloud_vpc_subnet.subnet_warpgate.id
+    uuid        = huaweicloud_vpc_subnet.subnet_warpgate.id
+    fixed_ip_v4 = var.warpgate_fixed_ipv4
   }
   private_key = huaweicloud_kps_keypair.warpgate_keypair.private_key
   key_pair    = huaweicloud_kps_keypair.warpgate_keypair.id
+}
+
+variable "warpgate_fixed_ipv4" {
+  type = string
 }
 
 data "huaweicloud_compute_flavors" "ecs_warpgate_flavor" {
@@ -71,6 +76,7 @@ resource "huaweicloud_kps_keypair" "warpgate_keypair" {
   key_file = var.warpgate_keypair_path
 }
 
+
 variable "warpgate_keypair_path" {
   type = string
 }
@@ -79,6 +85,8 @@ resource "huaweicloud_compute_eip_associate" "warpgate_eip_association" {
   instance_id = huaweicloud_compute_instance.ecs_warpgate.id
   public_ip   = huaweicloud_vpc_eip.eip_warpgate.address
 }
+
+
 
 # WIREGUARD
 

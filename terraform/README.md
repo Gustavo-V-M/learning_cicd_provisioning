@@ -65,6 +65,7 @@ No modules.
 | <a name="input_public_domain"></a> [public\_domain](#input\_public\_domain) | n/a | `string` | n/a | yes |
 | <a name="input_secret_key"></a> [secret\_key](#input\_secret\_key) | n/a | `string` | n/a | yes |
 | <a name="input_warpgate_domain_name"></a> [warpgate\_domain\_name](#input\_warpgate\_domain\_name) | n/a | `string` | n/a | yes |
+| <a name="input_warpgate_fixed_ipv4"></a> [warpgate\_fixed\_ipv4](#input\_warpgate\_fixed\_ipv4) | n/a | `string` | n/a | yes |
 | <a name="input_warpgate_keypair_path"></a> [warpgate\_keypair\_path](#input\_warpgate\_keypair\_path) | n/a | `string` | n/a | yes |
 | <a name="input_wireguard_domain_name"></a> [wireguard\_domain\_name](#input\_wireguard\_domain\_name) | n/a | `string` | n/a | yes |
 | <a name="input_wireguard_keypair_path"></a> [wireguard\_keypair\_path](#input\_wireguard\_keypair\_path) | n/a | `string` | n/a | yes |

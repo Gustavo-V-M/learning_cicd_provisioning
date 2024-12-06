@@ -1,4 +1,5 @@
-version: '3'
+# provided by Warpgate 
+# https://github.com/warp-tech/warpgate/wiki/Getting-started-on-Docker
 services:
   warpgate:
     image: ghcr.io/warp-tech/warpgate

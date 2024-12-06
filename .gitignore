@@ -59,3 +59,5 @@ terraform.rc
 *.key 
 
 *warpgate_address*
+
+*admin_pass*

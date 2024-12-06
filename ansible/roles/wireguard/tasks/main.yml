@@ -29,7 +29,7 @@
 
 - name: Creating wg0 config file
   ansible.builtin.template:
-    src: ../templates/wg0.j2
+    src: templates/wg0.j2
     dest: /etc/wireguard/wg0.conf
     mode: "0644"
 

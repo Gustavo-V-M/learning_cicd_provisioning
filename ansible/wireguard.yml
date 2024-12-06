@@ -1,5 +1,5 @@
 ---
-- name: Configure wireguard
+- name: Configure Wireguard
   hosts: wireguard
   remote_user: root
   roles:
