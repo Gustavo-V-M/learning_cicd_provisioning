@@ -11,26 +11,6 @@
     state: present
     update_cache: true
 
-- name: Add Docker GPG apt key
-  ansible.builtin.apt_key:
-    url: https://download.docker.com/linux/ubuntu/gpg
-    state: present
-
-- name: Add Docker Repository
-  ansible.builtin.apt_repository:
-    repo: deb https://download.docker.com/linux/ubuntu jammy stable
-    state: present
-
-- name: Install docker packages
-  ansible.builtin.apt:
-    pkg:
-      - docker-ce
-      - docker-ce-cli
-      - containerd.io
-      - docker-buildx-plugin
-      - docker-compose-plugin
-    state: present
-
 - name: Create project directory
   ansible.builtin.file:
     path: /root/warpgate/
@@ -41,35 +21,46 @@
     path: /root/warpgate/data
     state: directory
 
-- name: Add docker compose file to server
-  ansible.builtin.copy:
-    src: files/compose.yml
-    dest: /root/warpgate/
+- name: Delete warpgate binary if it exists
+  ansible.builtin.file:
+    path: /root/warpgate/warpgate
+    state: absent
+
+- name: Download warpgate binary
+  ansible.builtin.get_url:
+    url: https://github.com/warp-tech/warpgate/releases/download/v0.11.0/warpgate-v0.11.0-x86_64-linux
+    dest: /root/warpgate/warpgate
+    mode: "744"
+    owner: root
 
 - name: Delete Old warpgate config file if it already exists
   ansible.builtin.file:
-    path: /root/warpgate/data/warpgate.yaml
+    path: /etc/warpgate.yaml
     state: absent
 
 - name: Create warpgate config file
-  community.docker.docker_compose_v2_run:
-    project_src: /root/warpgate/
-    service: warpgate
+  ansible.builtin.command:
+    chdir: /root/warpgate/
     argv:
+      - /root/warpgate/warpgate
       - unattended-setup
       - --data-path=/data
       - --http-port=8888
       - --ssh-port=2222
       - --mysql-port=33306
       - --record-sessions
-      - --admin-password="{{ warpgate_admin_pass }}"
+      - --admin-password={{ warpgate_admin_pass }}
 
-- name: Bring the docker compose down if is running
-  community.docker.docker_compose_v2:
-    project_src: /root/warpgate/
-    state: absent
+- name: Add Warpgate service file to server
+  ansible.builtin.copy:
+    src: files/warpgate.service
+    dest: /etc/systemd/system/warpgate.service
+    mode: "744"
+    owner: root
 
-- name: Bring the docker compose up
-  community.docker.docker_compose_v2:
-    project_src: /root/warpgate/
-  register: warpgate_compose_output
+- name: Enable and run  Warpgate service
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+    enabled: true
+    name: warpgate
+    state: restarted
