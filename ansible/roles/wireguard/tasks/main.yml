@@ -1,5 +1,5 @@
 - name: Include necessary variables
-  ansible.builtin.include_vars: ../vars/main.yml
+  ansible.builtin.include_vars: vars/main.yml
 
 - name: Update apt cache and install latest wireguard
   ansible.builtin.apt:

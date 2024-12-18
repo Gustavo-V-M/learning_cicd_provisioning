@@ -1,1 +1,0 @@
-warpgate_admin_pass: "{{ lookup('file', 'files/admin_pass') }}"

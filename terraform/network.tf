@@ -4,19 +4,19 @@ resource "huaweicloud_vpc" "vpc_app" {
   cidr = "192.168.0.0/16"
 }
 
+resource "huaweicloud_vpc_subnet" "subnet_app" {
+  name              = "subnet-app"
+  cidr              = "192.168.0.0/24"
+  gateway_ip        = "192.168.0.1"
+  availability_zone = data.huaweicloud_availability_zones.sp_azs.names[0]
+  vpc_id            = huaweicloud_vpc.vpc_app.id
+}
+
 resource "huaweicloud_vpc" "vpc_access" {
   name = "vpc-access"
   cidr = "172.16.0.0/16"
 }
 
-
-resource "huaweicloud_vpc_subnet" "subnet_warpgate" {
-  name              = "subnet-warpgate"
-  cidr              = "172.16.0.0/24"
-  gateway_ip        = "172.16.0.1"
-  availability_zone = data.huaweicloud_availability_zones.sp_azs.names[0]
-  vpc_id            = huaweicloud_vpc.vpc_access.id
-}
 
 resource "huaweicloud_vpc_subnet" "subnet_wireguard" {
   name              = "subnet-wireguard"
@@ -61,15 +61,15 @@ resource "huaweicloud_vpc_eip" "eip_wireguard" {
   }
 }
 
-resource "huaweicloud_vpc_eip" "eip_warpgate" {
-  name = "eip-warpgate"
+resource "huaweicloud_vpc_eip" "eip_jenkins" {
+  name = "eip-jenkins"
   publicip {
     type = "5_bgp"
   }
 
   bandwidth {
     share_type  = "PER"
-    name        = "bandwidth-warpgate"
+    name        = "bandwidth-jenkins"
     size        = 5
     charge_mode = "traffic"
   }
@@ -105,8 +105,8 @@ variable "wireguard_domain_name" {
   type = string
 }
 
-resource "huaweicloud_dns_zone" "access_dns_private_zone" {
-  name        = var.access_private_domain
+resource "huaweicloud_dns_zone" "dns_private_zone" {
+  name        = var.private_domain
   email       = var.email
   description = "Private DNS for the Access VPC"
   ttl         = 3000
@@ -116,18 +116,19 @@ resource "huaweicloud_dns_zone" "access_dns_private_zone" {
   }
 }
 
-variable "access_private_domain" {
+variable "private_domain" {
   type = string
 }
 
-resource "huaweicloud_dns_recordset" "warpgate_access_recordset" {
-  name        = var.warpgate_domain_name
-  zone_id     = huaweicloud_dns_zone.access_dns_private_zone.id
+resource "huaweicloud_dns_recordset" "jenkins_access_recordset" {
+  name        = var.jenkins_domain_name
+  zone_id     = huaweicloud_dns_zone.dns_private_zone.id
   type        = "A"
-  description = "record set for the the warpgate server"
-  records     = [huaweicloud_compute_instance.ecs_warpgate.access_ip_v4]
+  description = "record set for the the jenkins server"
+  records     = [huaweicloud_compute_instance.ecs_jenkins.access_ip_v4]
   ttl         = 3000
 }
-variable "warpgate_domain_name" {
+
+variable "jenkins_domain_name" {
   type = string
 }

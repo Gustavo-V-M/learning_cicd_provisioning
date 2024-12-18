@@ -1,6 +1,0 @@
----
-- name: Configure Warpgate
-  hosts: warpgate
-  remote_user: root
-  roles:
-    - warpgate
