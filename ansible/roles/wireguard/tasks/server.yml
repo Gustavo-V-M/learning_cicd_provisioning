@@ -1,6 +1,3 @@
-- name: Include necessary variables
-  ansible.builtin.include_vars: vars/main.yml
-
 - name: Update apt cache and install latest wireguard
   ansible.builtin.apt:
     name: wireguard
@@ -34,8 +31,6 @@
     mode: "0644"
 
 - name: Bring wg0 interface up
-  ansible.builtin.command: "wg-quick up wg0"
-
-- name: Print Public key of server
-  ansible.builtin.debug:
-    msg: "{{ wireguard_server_pubkey.stdout }}"
+  ansible.builtin.systemd_service:
+    name: wg-quick@wg0
+    state: reloaded

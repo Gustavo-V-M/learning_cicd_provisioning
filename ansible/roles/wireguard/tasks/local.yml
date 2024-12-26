@@ -1,0 +1,4 @@
+- name: Create Tunnel configuration file
+  ansible.builtin.template:
+    src: templates/wg0_client.j2
+    dest: "{{ wireguard_local_conf_file_dest }}"

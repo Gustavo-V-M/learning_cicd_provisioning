@@ -1,5 +1,5 @@
 [Interface]
-Address = 10.0.0.1/24,
+Address = {{ wireguard_server_vpn_address }}
 PrivateKey = {{ wireguard_server_privatekey.stdout }}
 ListenPort = 51820
 PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE

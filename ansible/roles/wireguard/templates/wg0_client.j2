@@ -1,0 +1,9 @@
+[Interface]
+PrivateKey = {{ wireguard_local_privatekey }}
+Address = {{ wireguard_local_ip }}
+DNS = {{ wireguard_local_dns }}
+
+[Peer]
+PublicKey = {{ wireguard_server_pubkey.stdout }}
+AllowedIPs = {{ wireguard_local_allowed_ips }}
+Endpoint = {{ wireguard_server_endpoint }}:51820

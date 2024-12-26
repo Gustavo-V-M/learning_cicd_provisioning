@@ -1,3 +1,6 @@
 wireguard:
-  hosts: "{{ domain_name }}"
+  hosts: wireguardvpn.gustavolinux.com.br
 
+local:
+  hosts: localhost
+  ansible_connection: local

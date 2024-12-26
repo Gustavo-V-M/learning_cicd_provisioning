@@ -32,6 +32,7 @@ No modules.
 | [huaweicloud_kps_keypair.wireguard_keypair](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/kps_keypair) | resource |
 | [huaweicloud_networking_secgroup.sg_jenkins](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/networking_secgroup) | resource |
 | [huaweicloud_networking_secgroup.sg_wireguard](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/networking_secgroup) | resource |
+| [huaweicloud_networking_secgroup_rule.sg_jenkins_rule_github_webhook](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/networking_secgroup_rule) | resource |
 | [huaweicloud_networking_secgroup_rule.sg_jenkins_rule_http](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/networking_secgroup_rule) | resource |
 | [huaweicloud_networking_secgroup_rule.sg_jenkins_rule_ssh](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/networking_secgroup_rule) | resource |
 | [huaweicloud_networking_secgroup_rule.sg_wireguard_rule_ssh](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/networking_secgroup_rule) | resource |
@@ -39,6 +40,7 @@ No modules.
 | [huaweicloud_vpc.vpc_access](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/vpc) | resource |
 | [huaweicloud_vpc.vpc_app](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/vpc) | resource |
 | [huaweicloud_vpc_address_group.jenkins_access_address_group](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/vpc_address_group) | resource |
+| [huaweicloud_vpc_address_group.jenkins_github_webhook_ipgroup](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/vpc_address_group) | resource |
 | [huaweicloud_vpc_eip.eip_jenkins](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/vpc_eip) | resource |
 | [huaweicloud_vpc_eip.eip_wireguard](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/vpc_eip) | resource |
 | [huaweicloud_vpc_peering_connection.app_access_peering](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/vpc_peering_connection) | resource |

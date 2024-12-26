@@ -1,0 +1,21 @@
+---
+- name: Configure Wireguard
+  hosts: wireguard
+  remote_user: root
+  tasks:
+    - name: Configure WireGuard server
+      ansible.builtin.include_role:
+        name: wireguard
+        tasks_from: server.yml
+
+- name: Create local tunnel configuration file
+  hosts: local
+  connection: local
+  vars:
+    wireguard_server_pubkey: "{{ hostvars[groups['wireguard'][0]].wireguard_server_pubkey }}"
+    wireguard_server_endpoint: "{{ groups['wireguard'][0]}}"
+  tasks:
+    - name: Create local tunnel configuration file
+      ansible.builtin.include_role:
+        name: wireguard
+        tasks_from: local.yml
