@@ -32,6 +32,7 @@ No modules.
 | [huaweicloud_kps_keypair.wireguard_keypair](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/kps_keypair) | resource |
 | [huaweicloud_networking_secgroup.sg_jenkins](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/networking_secgroup) | resource |
 | [huaweicloud_networking_secgroup.sg_wireguard](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/networking_secgroup) | resource |
+| [huaweicloud_networking_secgroup_rule.sg_jenkins_rule_github_ping](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/networking_secgroup_rule) | resource |
 | [huaweicloud_networking_secgroup_rule.sg_jenkins_rule_github_webhook](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/networking_secgroup_rule) | resource |
 | [huaweicloud_networking_secgroup_rule.sg_jenkins_rule_http](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/networking_secgroup_rule) | resource |
 | [huaweicloud_networking_secgroup_rule.sg_jenkins_rule_ssh](https://registry.terraform.io/providers/huaweicloud/huaweicloud/latest/docs/resources/networking_secgroup_rule) | resource |

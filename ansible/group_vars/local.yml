@@ -1,4 +1,4 @@
-wireguard_local_privatekey: +I7KwQpOwO4zheaQ4IHDU0eXFOXOlWoRT4KXwdMnwGY= 
+wireguard_local_privatekey: "{{ lookup('ansible.builtin.env', 'WIREGUARD_PUBKEY') }}"
 wireguard_local_dns: 100.125.1.22,100.125.1.90
 wireguard_local_allowed_ips: 172.16.0.0/16,192.168.0.0/24
-wireguard_local_conf_file_dest: /mnt/c/Users/G50039089/Documents/wg0_client.conf
+wireguard_local_conf_file_dest: "{{ lookup('ansible.builtin.env', 'WIREGUARD_CONFIG_PATH') }}"

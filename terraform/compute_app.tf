@@ -67,6 +67,14 @@ resource "huaweicloud_networking_secgroup_rule" "sg_jenkins_rule_github_webhook"
   remote_address_group_id = huaweicloud_vpc_address_group.jenkins_github_webhook_ipgroup.id
 }
 
+resource "huaweicloud_networking_secgroup_rule" "sg_jenkins_rule_github_ping" {
+  security_group_id       = huaweicloud_networking_secgroup.sg_jenkins.id
+  direction               = "ingress"
+  ethertype               = "IPv4"
+  protocol                = "icmp"
+  remote_address_group_id = huaweicloud_vpc_address_group.jenkins_github_webhook_ipgroup.id
+}
+
 resource "huaweicloud_networking_secgroup_rule" "sg_jenkins_rule_ssh" {
   security_group_id       = huaweicloud_networking_secgroup.sg_jenkins.id
   direction               = "ingress"

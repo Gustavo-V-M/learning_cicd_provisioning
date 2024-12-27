@@ -1,2 +1,2 @@
 wireguard_local_ip: 10.0.0.2
-wireguard_local_pubkey: 46MPhCtaHiOVtfQKqGmh2enPMlMdKxiuhaBqAu5NgEg=
+wireguard_local_pubkey: "{{ lookup('ansible.builtin.env', 'WIREGUARD_PRIVATEKEY') }}"
