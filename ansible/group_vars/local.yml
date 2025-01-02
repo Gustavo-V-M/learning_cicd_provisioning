@@ -1,4 +1,4 @@
-wireguard_local_privatekey: "{{ lookup('ansible.builtin.env', 'WIREGUARD_PUBKEY') }}"
+wireguard_local_privatekey: "{{ lookup('ansible.builtin.env', 'WIREGUARD_PRIVATEKEY') }}"
 wireguard_local_dns: 100.125.1.22,100.125.1.90
 wireguard_local_allowed_ips: 172.16.0.0/16,192.168.0.0/24
 wireguard_local_conf_file_dest: "{{ lookup('ansible.builtin.env', 'WIREGUARD_CONFIG_PATH') }}"

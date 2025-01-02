@@ -61,3 +61,6 @@ terraform.rc
 *warpgate_address*
 
 *admin_pass*
+
+*setup_env.sh*
+*.env*

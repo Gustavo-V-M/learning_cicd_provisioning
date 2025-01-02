@@ -76,6 +76,21 @@ resource "huaweicloud_vpc_eip" "eip_jenkins" {
 }
 
 
+resource "huaweicloud_vpc_eip" "eip_prometheus" {
+  name = "eip-prometheus"
+  publicip {
+    type = "5_bgp"
+  }
+
+  bandwidth {
+    share_type  = "PER"
+    name        = "bandwidth-jenkins"
+    size        = 5
+    charge_mode = "traffic"
+  }
+}
+
+
 resource "huaweicloud_dns_zone" "dns_public_zone" {
   name        = var.public_domain
   email       = var.email
@@ -105,27 +120,12 @@ variable "wireguard_domain_name" {
   type = string
 }
 
-resource "huaweicloud_dns_zone" "dns_private_zone" {
-  name        = var.private_domain
-  email       = var.email
-  description = "Private DNS for the Access VPC"
-  ttl         = 3000
-  zone_type   = "private"
-  router {
-    router_id = huaweicloud_vpc.vpc_access.id
-  }
-}
-
-variable "private_domain" {
-  type = string
-}
-
-resource "huaweicloud_dns_recordset" "jenkins_access_recordset" {
+resource "huaweicloud_dns_recordset" "dns_public_jenkins_recordset" {
   name        = var.jenkins_domain_name
-  zone_id     = huaweicloud_dns_zone.dns_private_zone.id
+  zone_id     = huaweicloud_dns_zone.dns_public_zone.id
   type        = "A"
   description = "record set for the the jenkins server"
-  records     = [huaweicloud_compute_instance.ecs_jenkins.access_ip_v4]
+  records     = [huaweicloud_vpc_eip.eip_jenkins.address]
   ttl         = 3000
 }
 
